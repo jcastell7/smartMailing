@@ -1,0 +1,22 @@
+{
+  "name": "smartmailing",
+  "version": "1.0.0",
+  "description": "app to send regular mails",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jcastell7/smartMailing.git"
+  },
+  "author": "jcastell7",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jcastell7/smartMailing/issues"
+  },
+  "homepage": "https://github.com/jcastell7/smartMailing#readme",
+  "dependencies": {
+    "nodemailer": "^5.0.0"
+  }
+}
