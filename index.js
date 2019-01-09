@@ -1,43 +1,43 @@
-var nodemailer = require('nodemailer');
+require('dotenv').config()
+const nodemailer = require('nodemailer');
 
 let smtpConfig = {
-    host: 'smtp.office365.com',
+    host: "smtp-mail.outlook.com", // hostname
+    secureConnection: false, // TLS requires secureConnection to be false
     port: 587,
-    secure: false, // upgrade later with STARTTLS
-    auth: {
-        user: 'jcastell7@cuc.edu.co',
-        pass: 'echo"jcastell7"'
+    tls: {
+        ciphers:'SSLv3'
     },
-    requireTLS:     true
+    auth: {
+        user: process.env.USER,
+        pass: process.env.PASSWORD
+    }
 };
 
 var transporter = nodemailer.createTransport(smtpConfig);
 
-transporter.verify(function(error, success) {
+transporter.verify(function (error, success) {
     if (error) {
-         console.log("ERROR: ",error);
+        console.log("ERROR: ", error);
     } else {
-         console.log('Server is ready to take our messages');
-         console.log(success);
+        console.log('Server is ready to take our messages');
+        console.log(success);
     }
- });
+});
 
- let message = {
-    from: 'jcatell7@cuc.edu.co', // listed in rfc822 message header
-    to: 'jtcp27031@gmail.com', // listed in rfc822 message header
-    subject: 'this is a test message',
-    text: 'this mail was sent from my nodejs app created with nodemailer',
-    envelope: {
-        from: 'Daemon <jcatell7@cuc.edu.co>', // used as MAIL FROM: address for SMTP
-        to: 'jtcp27031@gmail.com, Mailer <jtcp27031@gmail.com>' // used as RCPT TO: address for SMTP
-    }
-}
+let mailOptions = {
+    from: '"Fred Foo 👻" <jcastell7@cuc.edu.co>', // sender address
+    to: 'jcsanchezv1998@gmail.com', // list of receivers
+    subject: 'Hello ✔', // Subject line
+    text: 'Hello world?', // plain text body
+    html: '<b>Hello world?</b>' // html body
+};
 
-transporter.sendMail(message,function(err, info){
+transporter.sendMail(mailOptions, function (err, info) {
     if (err) {
         console.log(err);
-   } else {
+    } else {
         console.log('message was sent correctly');
         console.log(info);
-   }
+    }
 });

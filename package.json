@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/jcastell7/smartMailing#readme",
   "dependencies": {
+    "dotenv": "^6.2.0",
     "nodemailer": "^5.0.0"
   }
 }
