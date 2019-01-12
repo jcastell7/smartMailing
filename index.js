@@ -27,7 +27,7 @@ transporter.verify(function (error, success) {
 
 let mailOptions = {
     from: '"Fred Foo 👻" <jcastell7@cuc.edu.co>', // sender address
-    to: 'jcsanchezv1998@gmail.com', // list of receivers
+    to: 'jtcp27031@gmail.com', // list of receivers
     subject: 'Hello ✔', // Subject line
     text: 'Hello world?', // plain text body
     html: '<b>Hello world?</b>' // html body
