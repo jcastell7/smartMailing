@@ -27,3 +27,21 @@ export const deleteById = _id => {
     });
   });
 };
+
+export const getProducts = () => {
+  return new Promise((done, reject) => {
+    let query = `SELECT t.* FROM task_products AS t`;
+    db.all(query, [_id], (error, res) => {
+      error ? (console.error(error), reject(error)) : done(res);
+    });
+  });
+};
+
+export const editProductById = (_id, name, quantity) => {
+  return new Promise((done, reject) => {
+    let query = `UPDATE "task_products" SET "name" = '?', "quantity" = '?' WHERE "task_product_id" = ?`;
+    db.run(query, [name, quantity, _id], error => {
+      error ? (console.error(error), reject(error)) : done();
+    });
+  });
+};
