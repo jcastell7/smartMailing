@@ -3,7 +3,7 @@ import fs from "fs";
 
 const db = new sqlLite3.Database("db.sqlite", sqlLite3.OPEN_READWRITE, (error) => {
     if (error) {
-        console.error(err.message);
+        console.error(error.message);
     } else {
         console.log('Connected to the chinook database.|');
     }
