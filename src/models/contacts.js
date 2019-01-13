@@ -5,7 +5,7 @@ export const create = (name, email) => {
     let query = ` INSERT INTO task_contacts (name, email) 
         VALUES (?, ?)`;
     db.run(query, [name, email], error => {
-      error ? (console.error(error), reject(error)) : done(result);
+      error ? (console.error(error), reject(error)) : done();
     });
   });
 };
