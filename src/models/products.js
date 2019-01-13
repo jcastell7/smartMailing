@@ -31,7 +31,7 @@ export const deleteById = _id => {
 export const getProducts = () => {
   return new Promise((done, reject) => {
     let query = `SELECT t.* FROM task_products AS t`;
-    db.all(query, [_id], (error, res) => {
+    db.all(query, {}, (error, res) => {
       error ? (console.error(error), reject(error)) : done(res);
     });
   });
