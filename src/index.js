@@ -1,4 +1,5 @@
 import { app, BrowserWindow } from 'electron';
+var http = require('http');
 
 require("electron-reload")(__dirname);
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
@@ -9,8 +10,8 @@ if (require('electron-squirrel-startup')) { // eslint-disable-line global-requir
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow;
-
-const createWindow = () => {
+const createWindow
+ = () => {
   // Create the browser window.
   mainWindow = new BrowserWindow({
     width: 800,
@@ -56,3 +57,10 @@ app.on('activate', () => {
 
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and import them here.
+
+http.createServer(function (req, res) {
+  res.writeHead(200, {'Content-Type': 'text/html'});
+  res.write(req.url);
+  res.end();
+}).listen(2019);
+
