@@ -1,4 +1,4 @@
-import db from "./connection";
+import db from "../services/connection";
 
 export const createTask = (name, message, cron_day) => {
     let date = new Date()
@@ -11,7 +11,7 @@ export const createTask = (name, message, cron_day) => {
 }
 
 export const getTasks = () => {
-
+    
 }
 
 

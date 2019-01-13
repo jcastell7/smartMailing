@@ -1,4 +1,4 @@
-import db from "./connection";
+import db from "../services/connection";
 
 export const create = (name, email) => {
     return new Promise((done, reject) => {

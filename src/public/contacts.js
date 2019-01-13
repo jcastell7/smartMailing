@@ -1,4 +1,4 @@
-import { create } from "../services/contacts";
+import { create } from "../models/contacts";
 window.onload = function () {
     let name = document.getElementById("name");
     let email = document.getElementById("email");
