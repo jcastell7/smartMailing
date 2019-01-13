@@ -2,8 +2,8 @@ import * as contacts from "../models/contacts";
 var txtId = document.getElementById("id")
 var txtName = document.getElementById("name");
 var txtEmail = document.getElementById("email");
-var newBtn = document.getElementById("btn-new");
-var saveBtn = document.getElementById("btn-save");
+var btnNew = document.getElementById("btn-new");
+var btnSave = document.getElementById("btn-save");
 var btnDelete = document.getElementById("btn-delete");
 var list = document.getElementById("list");
 window.onload = function () {
@@ -12,13 +12,20 @@ window.onload = function () {
         txtId.value = "";
         txtName.value = "";
         txtEmail.value = "";
-        saveBtn.innerText = "Guardar";
+        btnSave.innerText = "Guardar";
         btnDelete.style.display = "none";
     }
     function save() {
         if (txtName.value.trim() != "" && txtEmail.value.trim() != "") {
-            if (saveBtn.innerText == "Editar") {
-
+            if (btnSave.innerText == "Editar") {
+                contacts.updateById(txtId.value, txtName.value, txtEmail.value).then(() => {
+                    alert("Editado Exitoso");
+                    clear();
+                    loadContacts()
+                }).catch((error) => {
+                    alert("Ha ocurrido un error");
+                    console.error(error);
+                });
             } else {
                 contacts.create(txtName.value, txtEmail.value).then(() => {
                     alert("Guardado Exitoso");
@@ -53,8 +60,8 @@ window.onload = function () {
         }
     }
     loadContacts()
-    newBtn.addEventListener("click", clear);
-    saveBtn.addEventListener("click", save);
+    btnNew.addEventListener("click", clear);
+    btnSave.addEventListener("click", save);
     btnDelete.addEventListener("click", deleteContact);
 }
 function selectItem(_id) {
@@ -62,7 +69,7 @@ function selectItem(_id) {
         id.value = item.task_contact_id;
         txtName.value = item.name;
         txtEmail.value = item.email;
-        saveBtn.innerText = "Editar";
+        btnSave.innerText = "Editar";
         btnDelete.style.display = "block";
     })
 }

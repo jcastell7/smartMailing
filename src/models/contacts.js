@@ -37,7 +37,7 @@ export const deleteById = _id => {
   });
 };
 
-export const editById = (_id, name, email) => {
+export const updateById = (_id, name, email) => {
   return new Promise((done, reject) => {
     let query = `UPDATE "task_contacts" SET "name" = ?, "email" = ? WHERE "task_contact_id" = ?`;
     db.run(query, [name, email, _id], error => {
