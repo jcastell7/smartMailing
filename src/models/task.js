@@ -1,10 +1,10 @@
 import db from "../services/connection";
 
-export const createTask = (name, message, cron_day) => {
+export const create = (name, message, cron_day) => {
   return new Promise((done, reject) => {
     let date = new Date();
     let query = `INSERT INTO tasks (name, message, cron_day, cron_date) 
-                      VALUES ('?', '?', ?, '?')`;
+                      VALUES (?, ?, ?, ?)`;
     db.run(query, [name, message, cron_day, date.toString()], error => {
       error ? (console.error(error), reject(error)) : done();
     });
@@ -20,7 +20,7 @@ export const getTasks = () => {
   });
 };
 
-export const getTaskById = _id => {
+export const getById = _id => {
   return new Promise((done, reject) => {
     let query = `SELECT t.* FROM task AS t WHERE task_id = ?`;
     db.get(query, [_id], (error, res) => {
@@ -29,7 +29,7 @@ export const getTaskById = _id => {
   });
 };
 
-export const deleteTaskById = _id => {
+export const deleteById = _id => {
   return new Promise((done, reject) => {
     let query = `DELETE FROM "tasks" WHERE "task_id" = ?`;
     db.run(query, [_id], error => {
@@ -39,10 +39,10 @@ export const deleteTaskById = _id => {
 };
 
 export const editTaskById = (name, message, cron_day, cron_date, _id) => {
-    return new Promise((done, reject) => {
-        let query = ` UPDATE "tasks" SET "name" = '?', "message" = '?', "cron_day" = ?, "cron_date" = '?' WHERE "task_id" = ? `;
-        db.run(query, [name, message, cron_day, cron_date, _id], error => {
-          error ? (console.error(error), reject(error)) : done();
-        });
-      }); 
-}
+  return new Promise((done, reject) => {
+    let query = ` UPDATE "tasks" SET "name" = ?, "message" = ?, "cron_day" = ?, "cron_date" = ? WHERE "task_id" = ? `;
+    db.run(query, [name, message, cron_day, cron_date, _id], error => {
+      error ? (console.error(error), reject(error)) : done();
+    });
+  });
+};
