@@ -2,7 +2,7 @@ import sqlite3 from 'sqlite3';
 import fs from "fs";
 import path from "path"
 
-const DATABASE_PATH = path.resolve(__dirname, "smartMailing.db");
+const DATABASE_PATH = "smartMailing.db"//path.resolve(__dirname, "smartMailing.db");
 console.info("Database URL", DATABASE_PATH);
 const db = new sqlite3.Database(DATABASE_PATH, sqlite3.OPEN_READWRITE | sqlite3.OPEN_CREATE, (error) => {
     console.log("this is the error message: ",error);
