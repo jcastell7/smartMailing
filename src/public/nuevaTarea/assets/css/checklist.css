@@ -1,0 +1,132 @@
+/* FONT */
+@import url('https://fonts.googleapis.com/css?family=Montserrat:300,400,600');
+
+/* CHECKLIST */
+mark {
+    background-color: transparent;
+    color: #232323;
+}
+
+.checkbox {
+    text-align: justify;
+    direction: rtl;
+    position: relative;
+    line-height: 0;
+}
+.checkbox:after {
+    content: "";
+    width: 100%;
+    display: inline-block;
+}
+.checkbox input,
+.checkbox .label,
+.checkbox .check {
+    display: inline-block;
+    vertical-align: middle;
+}
+.checkbox .label {
+    max-width: 200px;
+}
+.checkbox .check {
+    position: relative;
+}
+.checkbox input[type="checkbox"] {
+    opacity: 0;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    cursor: pointer;
+    border-color: #232323;
+}
+.checkbox input[type="checkbox"]:focus {
+    outline: 0;
+}
+.checkbox input[type="checkbox"]:checked + .check-container .check-off {
+    border-color: #ff7b0e;
+}
+
+.checkbox input[type="checkbox"]:checked + .check-container .check-on:after {
+    content: "✓";
+    color: #ff7b0e;
+    position: absolute;
+    font-size: 1em;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%)
+}
+
+.checkbox input[type="checkbox"] + .check-container {
+    width: auto;
+    position: relative;
+    display: inline-block;
+    width: 29px;
+    height: 29px;
+    top: 2px;
+    pointer-events: none;
+}
+
+.checkbox input[type="checkbox"] + .check-container .check-off {
+    position: absolute;
+    width: 25px;
+    height: 25px;
+    left: 0;
+    top: 0;
+    border-radius: 2px;
+    border: 2px solid #232323;
+    transition: border-color ease 0.28s;
+}
+
+.task-list {
+    position: relative;
+    padding: 15px 25px;
+    font-family: 'Montserrat', sans-serif;
+}
+.task-list mark {
+    color: #232323;
+    display: inline-block;
+    margin-bottom: 3px;
+}
+.task-list time {
+    font-weight: 300;
+    font-size: 12px;
+}
+
+.task-list ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    position: relative;
+    z-index: 1;
+}
+
+.task-list ul li {
+    -webkit-transition: all 0.2s ease-out;
+    -moz-transition: all 0.2s ease-out;
+    transition: all 0.2s ease-out;
+    padding: 15px 0;
+    position: relative;
+    margin: 0;
+}
+.task-list ul li .label {
+    -webkit-transition: all 0.2s ease-out;
+    -moz-transition: all 0.2s ease-out;
+    transition: all 0.2s ease-out;
+    margin-bottom: 2px;
+    line-height: 1.2;
+    direction: ltr;
+    text-align: left;
+    opacity: 1;
+    max-width: unset;
+}
+
+.task-list ul li.task-checked .label {
+    opacity: 0.5;
+}
+
+.task-list.current ul li {
+    border-top: 1px solid #b2b4b9;
+}
+
+.task-list.current ul li:first-child {
+    border-top: 0;
+}
