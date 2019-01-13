@@ -1,5 +1,6 @@
 .list-group.list-group-flush {
   max-height:40%;
+  min-height: 270px;
   overflow:hidden;
   overflow-y:scroll;
 }
