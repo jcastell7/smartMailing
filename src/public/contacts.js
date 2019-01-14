@@ -58,7 +58,7 @@ window.onload = function () {
 function selectItem(_id) {
     _id = _id.substr(7, _id.length);
     contacts.findById(_id).then((item) => {
-        id.value = item.task_contact_id;
+        id.value = item.id;
         txtName.value = item.name;
         txtEmail.value = item.email;
         btnSave.innerText = "Editar";

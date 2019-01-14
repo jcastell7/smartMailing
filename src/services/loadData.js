@@ -18,7 +18,7 @@ export const listProducts = async () =>{
         console.error(error);
     });
     products.forEach(item => {
-        productsHtml += `<li class="list-group-item" onclick="selectItem('product${item.task_product_id}')">${item.name}</li>`;
+        productsHtml += `<li class="list-group-item" onclick="selectItem('product${item.id}')">${item.name}</li>`;
     });
     return productsHtml;
 }
@@ -30,7 +30,7 @@ export const listTasks = async () =>{
         console.error(error);
     });
     tasks.forEach(item => {
-        tasksHtml += `<li class="list-group-item" onclick="selectItem('task${item.task_id}')">${item.name}</li>`;
+        tasksHtml += `<li class="list-group-item" onclick="selectItem('task${item.id}')">${item.name}</li>`;
     });
     return tasksHtml;
 }
@@ -42,7 +42,7 @@ export const listContacts = async () =>{
         console.error(error);
     });
     contacts.forEach(item => {
-        contactsHtml += `<li class="list-group-item" onclick="selectItem('contact${item.task_contact_id}')">${item.name}</li>`;
+        contactsHtml += `<li class="list-group-item" onclick="selectItem('contact${item.id}')">${item.name}</li>`;
     });
     return contactsHtml;
 }
@@ -57,7 +57,7 @@ export const listContactsCheck = async () => {
         contactsHtml +=`<li>
         <div class="checkbox">
           <div class="check">
-            <input type="checkbox" name="contacts" id="contact${item.task_contact_id}" />
+            <input type="checkbox" name="contacts" id="contact${item.id}" />
             <div class="check-container">
               <div class="check-off"></div>
               <div class="check-on"><i></i></div>
@@ -83,7 +83,7 @@ export const listProductsCheck = async () => {
         contactsHtml +=`<li>
         <div class="checkbox">
           <div class="check">
-            <input type="checkbox" name="contacts" id="contact${item.task_product_id}" />
+            <input type="checkbox" name="contacts" id="contact${item.id}" />
             <div class="check-container">
               <div class="check-off"></div>
               <div class="check-on"><i></i></div>

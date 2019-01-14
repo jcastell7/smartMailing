@@ -58,7 +58,7 @@ window.onload = function () {
 function selectItem(_id) {
     _id = _id.substr(7, _id.length);
     products.findById(_id).then((item) => {
-        id.value = item.task_product_id;
+        id.value = item.id;
         txtName.value = item.name;
         txtQuanity.value = item.quantity;
         btnSave.innerText = "Editar";
