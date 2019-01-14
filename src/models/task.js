@@ -1,10 +1,10 @@
 import db from "../services/connection";
 
-export const create = (name, message, cron_day) => {
+export const create = (name, subject, message, cron_day) => {
   return new Promise((done, reject) => {
     let date = new Date();
-    let query = `INSERT INTO tasks (name, message, cron_day, cron_date) 
-                      VALUES (?, ?, ?, ?)`;
+    let query = `INSERT INTO tasks (name, subject, message, cron_day, cron_date) 
+                      VALUES (?, ?, ?, ?, ?)`;
     db.run(query, [name, message, cron_day, date.toString()], error => {
       error ? (console.error(error), reject(error)) : done();
     });

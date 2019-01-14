@@ -46,3 +46,55 @@ export const listContacts = async () =>{
     });
     return contactsHtml;
 }
+
+export const listContactsCheck = async () => {
+    let contactsHtml = "";
+    let contacts = await contact.getContacts().catch(error=>{
+        alert("Ha ocurrido un error");
+        console.error(error);
+    });
+    contacts.forEach(item => {
+        contactsHtml +=`<li>
+        <div class="checkbox">
+          <div class="check">
+            <input type="checkbox" name="contacts" id="contact${item.task_contact_id}" />
+            <div class="check-container">
+              <div class="check-off"></div>
+              <div class="check-on"><i></i></div>
+            </div>
+          </div>
+          <div class="label">
+            <mark>${item.name}</mark> <br />
+            <p>${item.email}</p>
+          </div>
+        </div>
+      </li>`;
+    });
+    return contactsHtml;
+}
+
+export const listProductsCheck = async () => {
+    let contactsHtml = "";
+    let contacts = await product.getProducts().catch(error=>{
+        alert("Ha ocurrido un error");
+        console.error(error);
+    });
+    contacts.forEach(item => {
+        contactsHtml +=`<li>
+        <div class="checkbox">
+          <div class="check">
+            <input type="checkbox" name="contacts" id="contact${item.task_product_id}" />
+            <div class="check-container">
+              <div class="check-off"></div>
+              <div class="check-on"><i></i></div>
+            </div>
+          </div>
+          <div class="label">
+            <mark>${item.name}</mark> <br />
+            <p>Cantidad: ${item.quantity}</p>
+          </div>
+        </div>
+      </li>`;
+    });
+    return contactsHtml;
+}

@@ -1,37 +1,44 @@
-import * as products from "../models/products";
+import * as tasks from "../models/task";
 import * as lists from "../services/loadData";
 var txtId = document.getElementById("id")
 var txtName = document.getElementById("name");
-var txtQuanity = document.getElementById("quanity");
+var txtDays = document.getElementById("days");
+var txtSubject = document.getElementById("subject");
+var txtMessage = document.getElementById("message");
 var btnNew = document.getElementById("btn-new");
 var btnSave = document.getElementById("btn-save");
 var btnDelete = document.getElementById("btn-delete");
-var list = document.getElementById("list");
+var contactList = document.getElementById("contactCheckList");
+var productList = document.getElementById("productCheckList");
+var taskList = document.getElementById("taskList");
+
 window.onload = function () {
 
     function clear() {
         txtId.value = "";
         txtName.value = "";
-        txtQuanity.value = "";
+        txtDays.value = "";
+        txtSubject.value = "";
+        txtMessage.value = "";
         btnSave.innerText = "Guardar";
         btnDelete.style.display = "none";
     }
     function save() {
-        if (txtName.value.trim() != "" && txtQuanity.value.trim() != "") {
+        if (txtName.value.trim() != "" && txtDays.value.trim() != "") {
             if (btnSave.innerText == "Editar") {
-                products.updateById(txtId.value, txtName.value, txtQuanity.value).then(() => {
+                tasks.updateById(txtId.value, txtName.value, txtDays.value).then(() => {
                     alert("Editado Exitoso");
                     clear();
-                    loadProducts()
+                    loadLists()
                 }).catch((error) => {
                     alert("Ha ocurrido un error");
                     console.error(error);
                 });
             } else {
-                products.create(txtName.value, txtQuanity.value).then(() => {
+                tasks.create(txtName.value, txtDays.value).then(() => {
                     alert("Guardado Exitoso");
                     clear();
-                    loadProducts()
+                    loadLists()
                 }).catch((error) => {
                     alert("Ha ocurrido un error");
                     console.error(error);
@@ -39,28 +46,30 @@ window.onload = function () {
             }
         }
     }
-    async function loadProducts() {
-            list.innerHTML = await lists.listProducts();
+    async function loadLists() {
+            contactList.innerHTML = await lists.listContactsCheck();
+            productList.innerHTML = await lists.listProductsCheck();
+            taskList.innerHTML = await lists.listTasks();
     }
     function deleteProduct(){
         if(confirm("¿Está Seguro?")){
-            products.deleteById(txtId.value).then(()=>{
+            tasks.deleteById(txtId.value).then(()=>{
                 clear();    
-                loadProducts();
+                loadLists();
             })
         }
     }
-    loadProducts()
+    loadLists()
     btnNew.addEventListener("click", clear);
     btnSave.addEventListener("click", save);
     btnDelete.addEventListener("click", deleteProduct);
 }
 function selectItem(_id) {
     _id = _id.substr(7, _id.length);
-    products.findById(_id).then((item) => {
+    tasks.findById(_id).then((item) => {
         id.value = item.task_product_id;
         txtName.value = item.name;
-        txtQuanity.value = item.quantity;
+        txtDays.value = item.quantity;
         btnSave.innerText = "Editar";
         btnDelete.style.display = "block";
     })

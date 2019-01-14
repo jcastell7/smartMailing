@@ -21,6 +21,7 @@ if(!fs.existsSync(DATABASE_PATH)){
             CREATE TABLE tasks (
                 task_id	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
                 name	TEXT NOT NULL,
+                subject TEXT NOT NULL,
                 message	TEXT NOT NULL,
                 cron_day	INTEGER NOT NULL,
                 cron_date	NUMERIC NOT NULL

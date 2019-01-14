@@ -86,7 +86,7 @@ mark {
     display: inline-block;
     margin-bottom: 3px;
 }
-.task-list time {
+.task-list p {
     font-weight: 300;
     font-size: 12px;
 }
