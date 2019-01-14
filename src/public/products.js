@@ -1,8 +1,8 @@
-import * as contacts from "../models/contacts";
+import * as products from "../models/products";
 import * as lists from "../services/loadData";
-var txtId = document.getElementById("id");
+var txtId = document.getElementById("id")
 var txtName = document.getElementById("name");
-var txtEmail = document.getElementById("email");
+var txtQuanity = document.getElementById("quanity");
 var btnNew = document.getElementById("btn-new");
 var btnSave = document.getElementById("btn-save");
 var btnDelete = document.getElementById("btn-delete");
@@ -12,26 +12,26 @@ window.onload = function () {
     function clear() {
         txtId.value = "";
         txtName.value = "";
-        txtEmail.value = "";
+        txtQuanity.value = "";
         btnSave.innerText = "Guardar";
         btnDelete.style.display = "none";
     }
     function save() {
-        if (txtName.value.trim() != "" && txtEmail.value.trim() != "") {
+        if (txtName.value.trim() != "" && txtQuanity.value.trim() != "") {
             if (btnSave.innerText == "Editar") {
-                contacts.updateById(txtId.value, txtName.value, txtEmail.value).then(() => {
+                products.updateById(txtId.value, txtName.value, txtQuanity.value).then(() => {
                     alert("Editado Exitoso");
                     clear();
-                    loadContacts()
+                    loadProducts()
                 }).catch((error) => {
                     alert("Ha ocurrido un error");
                     console.error(error);
                 });
             } else {
-                contacts.create(txtName.value, txtEmail.value).then(() => {
+                products.create(txtName.value, txtQuanity.value).then(() => {
                     alert("Guardado Exitoso");
                     clear();
-                    loadContacts()
+                    loadProducts()
                 }).catch((error) => {
                     alert("Ha ocurrido un error");
                     console.error(error);
@@ -39,28 +39,28 @@ window.onload = function () {
             }
         }
     }
-    async function loadContacts() {
-            list.innerHTML = await lists.listContacts();
+    async function loadProducts() {
+            list.innerHTML = await lists.listProducts();
     }
     function deleteContact(){
         if(confirm("¿Está Seguro?")){
-            contacts.deleteById(txtId.value).then(()=>{
+            products.deleteById(txtId.value).then(()=>{
                 clear();    
-                loadContacts();
+                loadProducts();
             })
         }
     }
-    loadContacts()
+    loadProducts()
     btnNew.addEventListener("click", clear);
     btnSave.addEventListener("click", save);
     btnDelete.addEventListener("click", deleteContact);
 }
 function selectItem(_id) {
     _id = _id.substr(7, _id.length);
-    contacts.findById(_id).then((item) => {
-        id.value = item.task_contact_id;
+    products.findById(_id).then((item) => {
+        id.value = item.task_product_id;
         txtName.value = item.name;
-        txtEmail.value = item.email;
+        txtQuanity.value = item.quantity;
         btnSave.innerText = "Editar";
         btnDelete.style.display = "block";
     })
