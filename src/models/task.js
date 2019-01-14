@@ -2,28 +2,53 @@ import db from "../services/connection";
 
 export const create = (name, subject, message, cron_day, contacts, products) => {
   return new Promise((done, reject) => {
+    try{
+      storeTask(name, subject, message, cron_day).then(() => {
+        getLastId().then((taskId)=> {
+          console.log("taskId: ", taskId);
+          storeContacts(taskId, contacts);
+          storeProducts(taskId, products);
+          done();
+        });
+      });
+    }catch(error){
+      reject();
+    }
+  });
+};
+const storeTask = (name, subject, message, cron_day) =>{
+  return new Promise((done, reject) => {
     let date = new Date();
     let query = `INSERT INTO tasks (name, subject, message, cron_day, cron_date) 
                       VALUES (?, ?, ?, ?, ?)`;
     db.run( query, [name, subject, message, cron_day, date.toString()], error => {
-        error ? (console.error(error), reject(error)) : async () => {
-              let taskId = await getLastId();
-              contacts.forEach(item => {
-                let contactQuery = `INSERT INTO contactsTasks (task_id, contact_id) VALUES (?, ?)`;
-                db.run(contactQuery, [taskId, item], error => {
-                  error ? (console.error(error), reject(error)) : "";
-                });
-              });
-              products.forEach(item => {
-                let contactQuery = `INSERT INTO productsTasks (task_id, contact_id) VALUES (?, ?)`;
-                db.run(contactQuery, [taskId, item], error => {
-                  error ? (console.error(error), reject(error)) : done();
-                });
-              });
-            };
+        error ? (console.error(error), reject(error)) : done(); 
       });
   });
-};
+}
+
+const storeContacts = (taskId, contacts) =>{
+  return new Promise((done, reject) =>{
+      contacts.forEach(item => {
+  let contactQuery = `INSERT INTO contactsTasks (task_id, contact_id) VALUES (?, ?)`;
+  db.run(contactQuery, [taskId.id, item], error => {
+    error ? (console.log("query: ",contactQuery), console.error(error), reject(error)) : done();
+  });
+});
+  });
+}
+
+const storeProducts = (taskId, products) => {
+  return new Promise((done, reject) => {
+    products.forEach(item => {
+      let productQuery = `INSERT INTO productsTasks (task_id, product_id) VALUES (?, ?)`;
+      db.run(productQuery, [taskId.id, item], error => {
+        error ? (console.log("query: ",productQuery), console.error(error), reject(error)) : done();
+      });
+    });
+  })
+}
+
 
 export const getTasks = () => {
   return new Promise((done, reject) => {

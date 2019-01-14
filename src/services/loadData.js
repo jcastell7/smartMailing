@@ -83,7 +83,7 @@ export const listProductsCheck = async () => {
         contactsHtml +=`<li>
         <div class="checkbox">
           <div class="check">
-            <input type="checkbox" name="contacts" id="contact${item.id}" />
+            <input type="checkbox" name="products" id="product${item.id}" />
             <div class="check-container">
               <div class="check-off"></div>
               <div class="check-on"><i></i></div>

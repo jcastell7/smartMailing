@@ -16,7 +16,7 @@ var taskList = document.getElementById("taskList");
 window.onload = function() {
   function clear() {
     txtId.value = "";
-    txt.date = "";
+    txtDate.value = "";
     txtName.value = "";
     txtDays.value = "";
     txtSubject.value = "";
@@ -28,8 +28,7 @@ window.onload = function() {
     if (txtName.value.trim() != "" && txtDays.value.trim() != "") {
       if (btnSave.innerText == "Editar") {
         name, message, cron_day, cron_date, _id;
-        tasks
-          .updateById(
+        tasks.updateById(
             txtName.value,
             txtMessage.value,
             txtDays.value,
@@ -47,8 +46,16 @@ window.onload = function() {
             console.error(error);
           });
       } else {
-        tasks
-          .create(txtName.value, txtDays.value)
+        let contactList = document.getElementsByName("contacts");
+        let productList = document.getElementsByName("products");
+        let contacts =[], products = [];
+        contactList.forEach(item => {
+            item.checked ==true ? contacts.push(item.id.substr(7, item.id.length)) : "";
+        });
+        productList.forEach(item => {
+            item.checked ==true ? products.push(item.id.substr(7, item.id.length)) : "";
+        });
+        tasks.create(txtName.value, txtSubject.value, txtMessage.value, txtDays.value, contacts, products)
           .then(() => {
             alert("Guardado Exitoso");
             clear();
@@ -82,15 +89,12 @@ window.onload = function() {
 function selectItem(_id) {
   _id = _id.substr(4, _id.length);
   tasks.findById(_id).then(item => {
-    id.value = item.id;
+    txtId.value = item.id
+    txtDate.value = item.cron_date;
     txtName.value = item.name;
-    txtDays.value = item.quantity;
-    txtId = document.getElementById("id");
-    txtDate = document.getElementById("date");
-    txtName = document.getElementById("name");
-    txtDays = document.getElementById("days");
-    txtSubject = document.getElementById("subject");
-    txtMessage = document.getElementById("message");
+    txtDays.value = item.cron_day;
+    txtSubject.value = item.subject;
+    txtMessage.value = item.message;
     btnSave.innerText = "Editar";
     btnDelete.style.display = "block";
   });
