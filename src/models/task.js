@@ -61,10 +61,44 @@ export const getTasks = () => {
 
 export const getById = _id => {
   return new Promise((done, reject) => {
-    let query = `SELECT t.* FROM task AS t WHERE id = ?`;
+    let query = `SELECT t.* FROM tasks t WHERE id = ?`;
     db.get(query, [_id], (error, res) => {
       error ? (console.error(error), reject(error)) : done(res);
     });
+  });
+};
+
+export const getTaskContactsById = _id =>{
+  return new Promise((done, reject) => {
+      let query = `SELECT t.id, c.contact_id FROM tasks AS t
+      inner join contactsTasks as c on t.id = c.task_id
+      WHERE id = ?`;
+      db.all(query, [_id], (error, res) => {
+        error ? (console.error(error), reject(error)) : done(res);
+      });
+  });
+};
+
+export const getTaskProductsById = _id => {
+  return new Promise((done, reject) => {
+      let query = `SELECT t.id, p.product_id FROM tasks AS t
+      inner join productsTasks as p on t.id = p.task_id
+      WHERE id = ?`;
+      db.all(query, [_id], (error, res) => {
+        error ? (console.error(error), reject(error)) : done(res);
+      });
+  });
+}
+export const getFullInfoById = _id => {
+  return new Promise(async (done, reject) => {
+    try{let task = await getById(_id);
+      task.contacts = await getTaskContactsById(_id);
+      task.products = await getTaskProductsById(_id);
+      done(task);
+    }catch (error){
+      console.error(error);
+      reject(error);
+    }
   });
 };
 

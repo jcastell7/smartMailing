@@ -14,6 +14,8 @@ var productList = document.getElementById("productCheckList");
 var taskList = document.getElementById("taskList");
 
 window.onload = function() {
+  tasks.getFullInfoById(1);
+
   function clear() {
     txtId.value = "";
     txtDate.value = "";
@@ -23,11 +25,11 @@ window.onload = function() {
     txtMessage.value = "";
     btnSave.innerText = "Guardar";
     btnDelete.style.display = "none";
+    unCheckAll();
   }
   function save() {
     if (txtName.value.trim() != "" && txtDays.value.trim() != "") {
       if (btnSave.innerText == "Editar") {
-        name, message, cron_day, cron_date, _id;
         tasks.updateById(
             txtName.value,
             txtMessage.value,
@@ -86,15 +88,32 @@ window.onload = function() {
   btnSave.addEventListener("click", save);
   btnDelete.addEventListener("click", deleteProduct);
 };
+function unCheckAll(){
+  document.getElementsByName("contacts").forEach(item => {
+    item.checked = false;
+  });
+  document.getElementsByName("products").forEach(item => {
+    item.checked = false;
+  });
+}
+
 function selectItem(_id) {
   _id = _id.substr(4, _id.length);
-  tasks.findById(_id).then(item => {
+  tasks.getFullInfoById(_id).then(item => {
+    console.log(item);
     txtId.value = item.id
     txtDate.value = item.cron_date;
     txtName.value = item.name;
     txtDays.value = item.cron_day;
     txtSubject.value = item.subject;
     txtMessage.value = item.message;
+    unCheckAll();
+    item.contacts.forEach(contact => {
+      document.getElementById(`contact${contact.contact_id}`).checked = true;
+    });
+    item.products.forEach(product => {
+      document.getElementById(`product${product.product_id}`).checked = true;
+    })
     btnSave.innerText = "Editar";
     btnDelete.style.display = "block";
   });
