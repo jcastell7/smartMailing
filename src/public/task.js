@@ -30,18 +30,24 @@ window.onload = function() {
   function save() {
     if (txtName.value.trim() != "" && txtDays.value.trim() != "") {
       if (btnSave.innerText == "Editar") {
-        tasks.updateById(
-            txtName.value,
-            txtMessage.value,
-            txtDays.value,
-            txtSubject.value,
-            txtDate.value,
-            txtId.value
-          )
+        tasks.editTaskById(txtName.value, txtMessage.value, txtDays.value, txtSubject.value,   txtId.value)
           .then(() => {
-            alert("Editado Exitoso");
-            clear();
-            loadLists();
+            let contactList = document.getElementsByName("contacts");
+            let productList = document.getElementsByName("products");
+            let contacts =[], products = [];
+            contactList.forEach(item => {
+                item.checked ==true ? contacts.push(item.id.substr(7, item.id.length)) : "";
+            });
+            productList.forEach(item => {
+                item.checked ==true ? products.push(item.id.substr(7, item.id.length)) : "";
+            });
+            tasks.editContacts(txtId.value, contacts).then(() => {
+              tasks.editProducts(txtId.value, products).then(() => {
+                alert("Editado Exitoso");
+                clear();
+                loadLists();
+              });
+            });
           })
           .catch(error => {
             alert("Ha ocurrido un error");

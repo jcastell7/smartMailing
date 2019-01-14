@@ -111,21 +111,32 @@ export const deleteById = _id => {
   });
 };
 
-export const editTaskById = (
-  name,
-  message,
-  cron_day,
-  cron_date,
-  subject,
-  _id
-) => {
+export const editTaskById = (name, message, cron_day, subject, _id) => {
   return new Promise((done, reject) => {
-    let query = ` UPDATE "tasks" SET "name" = ?, "message" = ?, "cron_day" = ?, "subject" = ?, cron_date" = ? WHERE "id" = ? `;
-    db.run(query, [name, message, cron_day, subject, cron_date, _id], error => {
+    let query = `UPDATE "tasks" SET "name" = ?, "subject" = ?, "message" = ?, "cron_day" = ? WHERE "id" = ?`;
+    db.run(query, [name, subject, message, cron_day, _id], error => {
       error ? (console.error(error), reject(error)) : done();
     });
   });
 };
+
+export const editContacts = (task_id , contacts) => {
+  return new Promise((done, reject) => {
+    let queryDelete = `DELETE FROM "contactsTasks" WHERE "task_id" = ?`
+    db.run(queryDelete, [task_id], error =>{
+      error ? (console.error(error), reject(error)) : (storeContacts(task_id,contacts).then(done()));
+    })
+  })
+}
+
+export const editProducts = (task_id , products) => {
+  return new Promise((done, reject) => {
+    let queryDelete = `DELETE FROM "productsTasks" WHERE "task_id" = ?`
+    db.run(queryDelete, [task_id], error =>{
+      error ? (console.error(error), reject(error)) : (storeProducts(task_id,products).then(done()));
+    })
+  })
+}
 
 export const getLastId = () => {
   return new Promise((done, reject) => {
