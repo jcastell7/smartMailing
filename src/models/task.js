@@ -31,7 +31,7 @@ const storeContacts = (taskId, contacts) =>{
   return new Promise((done, reject) =>{
       contacts.forEach(item => {
   let contactQuery = `INSERT INTO contactsTasks (task_id, contact_id) VALUES (?, ?)`;
-  db.run(contactQuery, [taskId.id, item], error => {
+  db.run(contactQuery, [taskId, item], error => {
     error ? (console.log("query: ",contactQuery), console.error(error), reject(error)) : done();
   });
 });
@@ -42,7 +42,7 @@ const storeProducts = (taskId, products) => {
   return new Promise((done, reject) => {
     products.forEach(item => {
       let productQuery = `INSERT INTO productsTasks (task_id, product_id) VALUES (?, ?)`;
-      db.run(productQuery, [taskId.id, item], error => {
+      db.run(productQuery, [taskId, item], error => {
         error ? (console.log("query: ",productQuery), console.error(error), reject(error)) : done();
       });
     });
