@@ -1,20 +1,31 @@
-require('dotenv').config()
+import * as config from "../models/config"
 const nodemailer = require('nodemailer');
 
-let smtpConfig = {
-    host: "smtp-mail.outlook.com", // hostname
-    secureConnection: false, // TLS requires secureConnection to be false
-    port: 587,
-    tls: {
-        ciphers:'SSLv3'
-    },
-    auth: {
-        user: process.env.USER,
-        pass: process.env.PASSWORD
-    }
-};
+const mail = "";
 
-var transporter = nodemailer.createTransport(smtpConfig);
+const createMailer = async () => {
+    let smtpConfig = {
+        host: "smtp-mail.outlook.com", // hostname
+        secureConnection: false, // TLS requires secureConnection to be false
+        port: 587,
+        tls: {
+            ciphers:'SSLv3'
+        }
+    };
+    
+    let user = await config.getConfig().catch(error => {
+        console.error(error);
+        alert("Ha ocurrido un error al obtener usuario y contraseña");
+    });
+    mail = user.smtp_mail;
+    smtpConfig.auth = {
+        user: mail,
+        pass: user.smtp_password
+    }
+
+    return nodemailer.createTransport(smtpConfig);
+}
+
 
 transporter.verify(function (error, success) {
     if (error) {
@@ -25,19 +36,22 @@ transporter.verify(function (error, success) {
     }
 });
 
-let mailOptions = {
-    from: '"Fred Foo 👻" <jcastell7@cuc.edu.co>', // sender address
-    to: 'jtcp27031@gmail.com', // list of receivers
-    subject: 'Hello ✔', // Subject line
-    text: 'Hello world?', // plain text body
-    html: '<b>Hello world?</b>' // html body
-};
+export const sendMail = async (task) => {
+    let mailOptions = {
+        from: mail, // sender address
+        to: task.contacts.join(","), // list of receivers
+        subject: task.subject, // Subject line
+        text: task.message, // plain text body
+        //html: '<b>Hello world?</b>' // html body
+    };
+    let transporter = await createMailer();
+    transporter.sendMail(mailOptions, function (err, info) {
+        if (err) {
+            console.log(err);
+        } else {
+            console.log('message was sent correctly');
+            console.log(info);
+        }
+    });
+}
 
-transporter.sendMail(mailOptions, function (err, info) {
-    if (err) {
-        console.log(err);
-    } else {
-        console.log('message was sent correctly');
-        console.log(info);
-    }
-});
