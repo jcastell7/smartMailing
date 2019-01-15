@@ -61,16 +61,6 @@ app.on("activate", () => {
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and import them here.
 
-http
-  .createServer(function(req, res) {
-    executeTasks();
-    res.writeHead(200, { "Content-Type": "text/html" });
-    res.write(req.url);
-    res.end();
-  })
-  .listen(2019);
-
-executeTasks();
 
 const executeTasks = () => {
   let date = new Date();
@@ -91,3 +81,14 @@ windowsScheduler.get("dailyMail").then((schedule) => {
   });
   }
 });
+
+http
+  .createServer(function(req, res) {
+    executeTasks();
+    res.writeHead(200, { "Content-Type": "text/html" });
+    res.write(req.url);
+    res.end();
+  })
+  .listen(2019);
+
+executeTasks();
