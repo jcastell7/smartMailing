@@ -33,15 +33,16 @@
         </nav>
     </div>
     <div class="login-clean">
-        <form method="post">
+        <form>
             <h2 class="sr-only">Login Form</h2>
-            <div class="form-group"><input type="email" name="email" placeholder="Correo Electronico" class="form-control" /></div>
-            <div class="form-group"><input type="password" name="password" placeholder="Contraseña" class="form-control" /></div>
-            <div class="form-group"><button class="btn btn-light btn-lg" id="saveConfig">Guardar</button></div>
+            <div class="form-group"><input type="email" name="email" placeholder="Correo Electronico" class="form-control" id="email"/></div>
+            <div class="form-group"><input type="password" name="password" placeholder="Contraseña" class="form-control" id="password"/></div>
+            <div class="form-group"><button class="btn btn-light btn-lg" id="saveConfig" onclick="save()">Guardar</button></div>
         </form>
     </div>
     <script src="assets/js/jquery.min.js"></script>
     <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="config.js"></script>
 </body>
 
 </html>
