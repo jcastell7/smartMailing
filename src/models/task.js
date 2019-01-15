@@ -19,6 +19,7 @@ export const create = (name, subject, message, cron_day, contacts, products) => 
 const storeTask = (name, subject, message, cron_day) =>{
   return new Promise((done, reject) => {
     let date = new Date();
+    date.setDate(date.getDate() + cron_day);
     let query = `INSERT INTO tasks (name, subject, message, cron_day, cron_date) 
                       VALUES (?, ?, ?, ?, ?)`;
     db.run( query, [name, subject, message, cron_day, date.toString()], error => {
@@ -146,3 +147,21 @@ export const getLastId = () => {
     });
   });
 };
+
+export const taskForTheDay = date => {
+  return new Promise((done, reject) => {
+    let query = `SELECT t.* FROM tasks t WHERE cron_date = ?`;
+    db.all(query, [date.toString], (error, res) => {
+      error ? (console.error(error), reject(error)) : done(res);
+    });
+  });
+};
+
+export const updateCronDate = (taskId, date) => {
+  return new Promise((done, reject) => {
+    let query = `UPDATE "tasks" SET "cron_date" = ? WHERE "id" = ?`;
+    db.run(query, [date.toString, taskId], error => {
+      error ? (console.error(error), reject(error)) : done();
+    });
+  });
+}
