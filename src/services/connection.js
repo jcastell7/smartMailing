@@ -39,8 +39,7 @@ if (!fs.existsSync(DATABASE_PATH)) {
     db.run(`
             CREATE TABLE settings (
                 smtp_mail	TEXT NOT NULL,
-                smtp_password	TEXT NOT NULL,
-                version INTEGER NOT NULL DEFAULT 1
+                smtp_password	TEXT NOT NULL
             );
         `);
     db.run(`

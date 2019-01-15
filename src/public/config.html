@@ -4,9 +4,13 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>smartMailing</title>
+    <title>config</title>
     <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/checklist.css">
+    <link rel="stylesheet" href="assets/css/ebs-contact-form.css">
+    <link rel="stylesheet" href="assets/css/ebs-contact-form.css">
     <link rel="stylesheet" href="assets/css/Features-Boxed.css">
+    <link rel="stylesheet" href="assets/css/Login-Form-Clean.css">
     <link rel="stylesheet" href="assets/css/Navigation-Clean.css">
     <link rel="stylesheet" href="assets/css/Navigation-with-Button.css">
     <link rel="stylesheet" href="assets/css/styles.css">
@@ -28,33 +32,16 @@
             </div>
         </nav>
     </div>
-    <div class="features-boxed">
-        <div class="container">
-            <div class="row justify-content-center features">
-                <div class="col-sm-6 col-md-5 col-lg-4 item">
-                    <h3>Productos</h3>
-                    <ul class="list-group list-group-flush" id="productList">
-                    </ul>
-                    <button class="btn btn-light btn-lg" type="button" onclick="window.location.href='./products.html'" >Ver Más</button>
-                </div>
-                <div class="col-sm-6 col-md-5 col-lg-4 item">
-                    <h3>Tareas</h3>
-                    <ul class="list-group list-group-flush" id="taskList">
-                    </ul>
-                    <button class="btn btn-light btn-lg" type="button" onclick="window.location.href='./task.html'">Ver Más</button>
-                </div>
-                <div class="col-sm-6 col-md-5 col-lg-4 item">
-                    <h3>Contactos</h3>
-                    <ul class="list-group list-group-flush" id="contactList">
-                    </ul>
-                    <button class="btn btn-light btn-lg" type="button" onclick="window.location.href='./contacts.html'">Ver Más</button>
-                </div>
-            </div>
-        </div>
+    <div class="login-clean">
+        <form method="post">
+            <h2 class="sr-only">Login Form</h2>
+            <div class="form-group"><input type="email" name="email" placeholder="Correo Electronico" class="form-control" /></div>
+            <div class="form-group"><input type="password" name="password" placeholder="Contraseña" class="form-control" /></div>
+            <div class="form-group"><button class="btn btn-light btn-lg" id="saveConfig">Guardar</button></div>
+        </form>
     </div>
     <script src="assets/js/jquery.min.js"></script>
     <script src="assets/bootstrap/js/bootstrap.min.js"></script>
-    <script src="index.js"></script>
 </body>
 
 </html>
