@@ -2,6 +2,7 @@ import { app, BrowserWindow } from "electron";
 var http = require("http");
 import { taskForTheDay, updateCronDate } from "./models/task";
 import * as mail from "./services/mailing";
+const windowsScheduler = require('windows-scheduler');
 
 require("electron-reload")(__dirname);
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
@@ -81,3 +82,12 @@ const executeTasks = () => {
     });
   });
 };
+
+windowsScheduler.get("dailyMail").then((schedule) => {
+  if (!schedule){
+    windowsScheduler.create("dailyMail", "wget http://localhost:2019", { 
+      frequency: 'DAILY',
+      starttime: '9:00'
+  });
+  }
+});
